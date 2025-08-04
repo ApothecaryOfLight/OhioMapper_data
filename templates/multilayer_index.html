@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Python Shapefile Web Viewer</title>
+
+    <!-- Leaflet.js CSS - Essential for map styling -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+        integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
+        crossorigin="" />
+
+    <style>
+        /* Basic styling for the page */
+        html, body {
+            height: 100%;
+            margin: 0;
+            padding: 0;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            background-color: #f0f0f0;
+        }
+
+        /* The container for our map */
+        #map {
+            width: 100%;
+            height: 100%;
+            box-shadow: 0 0 10px rgba(0,0,0,0.5);
+        }
+
+        /* Custom popup styling for a cleaner look */
+        .leaflet-popup-content-wrapper {
+            border-radius: 8px;
+        }
+        .leaflet-popup-content {
+            margin: 12px;
+            font-size: 14px;
+            max-height: 250px; /* Add max height for popups with lots of data */
+            overflow-y: auto; /* Add scroll for overflow */
+        }
+        .popup-content b {
+            color: #333;
+        }
+        
+        /* Styling for the layer control panel */
+        .leaflet-control-layers-expanded { /* Target Leaflet's own class */
+            background: rgba(255, 255, 255, 0.9);
+            padding: 10px;
+            border-radius: 5px;
+            box-shadow: 0 0 15px rgba(0,0,0,0.2);
+            line-height: 1.8;
+        }
+    </style>
+</head>
+<body>
+    <!-- The div where the map will be rendered -->
+    <div id="map"></div>
+
+    <!-- Leaflet.js JavaScript Library -->
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+        integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
+        crossorigin=""></script>
+
+    <script>
+        // --- 1. Initialize the Map ---
+        const map = L.map('map').setView([40.4173, -82.9071], 7); // Centered on Ohio
+
+        // --- 2. Define Basemap Layer ---
+        const osmLayer = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+        });
+        // Add the basemap to the map; it will always be on.
+        osmLayer.addTo(map);
+
+        // --- 3. Define Interactions & Global Variables ---
+        const layerCache = new Map(); // Cache for loaded GeoJSON data to prevent re-fetching
+
+        const highlightStyle = {
+            weight: 4,
+            color: '#00FFFF', // A bright cyan color
+            dashArray: '',
+            fillOpacity: 0.3
+        };
+
+        function onEachFeature(feature, layer) {
+            let popupContent = '<div class="popup-content" style="max-width: 300px;">';
+            if (feature.properties) {
+                const nameProps = ['NAME', 'FULLNAME', 'DISTRICT', 'LOCATION', 'MUNICIPALI', 'OBJECTID'];
+                let title = '';
+                for (const prop of nameProps) {
+                    if (feature.properties[prop]) {
+                        title = String(feature.properties[prop]);
+                        break;
+                    }
+                }
+                if (title) {
+                     popupContent += `<b>${title}</b><hr style="margin: 5px 0;">`;
+                }
+
+                popupContent += '<table>';
+                for (const prop in feature.properties) {
+                    let value = feature.properties[prop];
+                    if (typeof value === 'string' && value.length > 50) {
+                        value = value.substring(0, 50) + '...';
+                    }
+                    popupContent += `<tr><td style="font-weight:bold; vertical-align: top; padding-right: 5px;">${prop}:</td><td>${value}</td></tr>`;
+                }
+                popupContent += '</table>';
+            }
+            popupContent += '</div>';
+            layer.bindPopup(popupContent);
+
+            layer.on({
+                mouseover: (e) => {
+                    const targetLayer = e.target;
+                    targetLayer.setStyle(highlightStyle);
+                    if (!L.Browser.ie && !L.Browser.opera && !L.Browser.edge) {
+                        targetLayer.bringToFront();
+                    }
+                },
+                mouseout: (e) => {
+                    // Reset to the style stored on the layer itself
+                    e.target.setStyle(e.target.options.originalStyle);
+                },
+                click: (e) => {
+                    map.fitBounds(e.target.getBounds());
+                }
+            });
+        }
+        
+        // --- 4. Function to Load a Specific Layer ---
+        async function loadLayer(layerName, targetLayerGroup) {
+            // Check if the group already has data to avoid re-fetching
+            if (targetLayerGroup.getLayers().length > 0) {
+                console.log(`Layer '${layerName}' is already loaded.`);
+                return;
+            }
+
+            // Use cache if available
+            if (layerCache.has(layerName)) {
+                console.log(`Loading layer '${layerName}' from cache.`);
+                const cachedGeoJson = layerCache.get(layerName);
+                cachedGeoJson.addTo(targetLayerGroup);
+                map.fitBounds(cachedGeoJson.getBounds());
+                return;
+            }
+
+            console.log(`Fetching data for layer: ${layerName}`);
+            const dataUrl = `http://127.0.0.1:5000/api/data/${layerName}`;
+
+            try {
+                const response = await fetch(dataUrl);
+                if (!response.ok) throw new Error(`Network response was not ok: ${response.statusText}`);
+                const data = await response.json();
+                
+                console.log("Data fetched successfully.");
+                
+                const geoJsonLayer = L.geoJSON(data, {
+                    style: (feature) => {
+                        // Define the original style based on geometry type
+                        return (feature.geometry.type === "Point")
+                            ? { color: "#ff0000", radius: 6, weight: 1, opacity: 1, fillOpacity: 0.8 }
+                            : { color: "#1f78b4", weight: 2, opacity: 0.8, fillColor: "#a6cee3", fillOpacity: 0.5 };
+                    },
+                    pointToLayer: (feature, latlng) => L.circleMarker(latlng),
+                    onEachFeature: (feature, layer) => {
+                        // Store the original style on the layer itself for the mouseout event
+                        layer.options.originalStyle = layer.options.style(feature);
+                        onEachFeature(feature, layer);
+                    }
+                });
+
+                layerCache.set(layerName, geoJsonLayer); // Add to cache
+                geoJsonLayer.addTo(targetLayerGroup); // Add the data to the target group
+
+                if (geoJsonLayer.getBounds().isValid()) {
+                    map.fitBounds(geoJsonLayer.getBounds());
+                }
+            } catch (error) {
+                console.error('Error fetching or parsing data:', error);
+                alert(`Could not load map data for layer: ${layerName}. Please check server logs.`);
+            }
+        }
+
+        // --- 5. Fetch Layer List and Build the Control Panel ---
+        async function initialize() {
+            const layersApiUrl = 'http://127.0.0.1:5000/api/layers';
+            try {
+                const response = await fetch(layersApiUrl);
+                const layerNames = await response.json();
+
+                if (!layerNames || layerNames.length === 0) {
+                    alert("No data layers found. Make sure shapefiles are in the 'data' folder.");
+                    return;
+                }
+
+                // Define the base map (radio button)
+                const baseMaps = {
+                    "OpenStreetMap": osmLayer
+                };
+
+                // Define the overlays (checkboxes)
+                const overlayMaps = {};
+                layerNames.forEach(name => {
+                    const formattedName = name.replace(/_/g, ' ');
+                    overlayMaps[formattedName] = L.layerGroup();
+                });
+
+                // Create the layer control with both base maps and overlays
+                L.control.layers(baseMaps, overlayMaps, { collapsed: false }).addTo(map);
+
+                // Add an event listener for when an overlay checkbox is CHECKED
+                map.on('overlayadd', function(e) {
+                    console.log(`Adding layer: ${e.name}`);
+                    const layerNameForApi = e.name.replace(/ /g, '_');
+                    // e.layer is the L.layerGroup we need to populate with data
+                    loadLayer(layerNameForApi, e.layer);
+                });
+
+                // Load the first data layer by default
+                const firstDataLayerName = layerNames[0];
+                const firstDataLayerFormattedName = firstDataLayerName.replace(/_/g, ' ');
+                const firstLayerGroup = overlayMaps[firstDataLayerFormattedName];
+                
+                // Add the first overlay to the map. This will check its box and
+                // automatically trigger the 'overlayadd' event, which calls loadLayer.
+                firstLayerGroup.addTo(map);
+
+            } catch (error) {
+                console.error('Error initializing map:', error);
+                alert('Could not fetch the list of available layers. Is the Python server running?');
+            }
+        }
+
+        // Start the application
+        initialize();
+
+    </script>
+</body>
+</html>
+

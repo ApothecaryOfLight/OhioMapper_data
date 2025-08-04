@@ -1,0 +1,348 @@
+<?xml version="1.0" encoding="UTF-8"?><mdb:MD_Metadata xmlns:msr="http://standards.iso.org/iso/19115/-3/msr/1.0" xmlns:cit="http://standards.iso.org/iso/19115/-3/cit/1.0" xmlns:mex="http://standards.iso.org/iso/19115/-3/mex/1.0" xmlns:gcx="http://standards.iso.org/iso/19115/-3/gcx/1.0" xmlns:mmi="http://standards.iso.org/iso/19115/-3/mmi/1.0" xmlns:mac="http://standards.iso.org/iso/19115/-3/mac/1.0" xmlns:esri="http://www.esri.com/metadata/" xmlns:mdb="http://standards.iso.org/iso/19115/-3/mdb/1.0" xmlns:mda="http://standards.iso.org/iso/19115/-3/mda/1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:mpc="http://standards.iso.org/iso/19115/-3/mpc/1.0" xmlns:cat="http://standards.iso.org/iso/19115/-3/cat/1.0" xmlns:gco="http://standards.iso.org/iso/19115/-3/gco/1.0" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:lan="http://standards.iso.org/iso/19115/-3/lan/1.0" xmlns:t="http://www.esri.com/xslt/translator" xmlns:mco="http://standards.iso.org/iso/19115/-3/mco/1.0" xmlns:mrs="http://standards.iso.org/iso/19115/-3/mrs/1.0" xmlns:dqc="http://standards.iso.org/iso/19157/-2/dqc/1.0" xmlns:gml="http://www.opengis.net/gml/3.2" xmlns:mrl="http://standards.iso.org/iso/19115/-3/mrl/1.0" xmlns:gex="http://standards.iso.org/iso/19115/-3/gex/1.0" xmlns:mdt="http://standards.iso.org/iso/19115/-3/mdt/1.0" xmlns:mri="http://standards.iso.org/iso/19115/-3/mri/1.0" xmlns:mas="http://standards.iso.org/iso/19115/-3/mas/1.0" xmlns:mds="http://standards.iso.org/iso/19115/-3/mds/1.0" xmlns:mcc="http://standards.iso.org/iso/19115/-3/mcc/1.0" xmlns:srv="http://standards.iso.org/iso/19115/-3/srv/2.0" xmlns:mdq="http://standards.iso.org/iso/19157/-2/mdq/1.0" xmlns:mrd="http://standards.iso.org/iso/19115/-3/mrd/1.0" xmlns:res="http://www.esri.com/metadata/res/" xmlns:mrc="http://standards.iso.org/iso/19115/-3/mrc/1.0">
+    <mdb:defaultLocale>
+        <lan:PT_Locale>
+            <lan:language>
+                <lan:LanguageCode codeList="http://www.loc.gov/standards/iso639-2/php/code_list.php" codeListValue="eng">eng</lan:LanguageCode>
+            </lan:language>
+            <lan:country>
+                <lan:CountryCode codeList="http://www.iso.org/iso/country_codes/iso_3166_code_lists.htm" codeListValue="US">US</lan:CountryCode>
+            </lan:country>
+        </lan:PT_Locale>
+    </mdb:defaultLocale>
+    <mdb:metadataScope>
+        <mdb:MD_MetadataScope>
+            <mdb:resourceScope>
+                <mcc:MD_ScopeCode codeList="standards.iso.org/19115/-3/lan/1.0/codelists.xml#MD_ScopeCode" codeListValue="dataset">dataset</mcc:MD_ScopeCode>
+            </mdb:resourceScope>
+            <mdb:name>
+                <gco:CharacterString>dataset</gco:CharacterString>
+            </mdb:name>
+        </mdb:MD_MetadataScope>
+    </mdb:metadataScope>
+    <mdb:contact gco:nilReason="missing"/>
+    <mdb:dateInfo>
+        <cit:CI_Date>
+            <cit:date>
+                <gco:DateTime>2025-04-01T00:00:00</gco:DateTime>
+            </cit:date>
+            <cit:dateType>
+                <cit:CI_DateTypeCode codeList="standards.iso.org/19115/-3/lan/1.0/codelists.xml#CI_DateTypeCode" codeListValue="revision">revision</cit:CI_DateTypeCode>
+            </cit:dateType>
+        </cit:CI_Date>
+    </mdb:dateInfo>
+    <mdb:metadataStandard>
+        <cit:CI_Citation>
+            <cit:title>
+                <gco:CharacterString>ISO 19115-3 Geographic Information - Metadata - Part 1: Fundamentals</gco:CharacterString>
+            </cit:title>
+            <cit:edition>
+                <gco:CharacterString>2014</gco:CharacterString>
+            </cit:edition>
+        </cit:CI_Citation>
+    </mdb:metadataStandard>
+    <mdb:spatialRepresentationInfo>
+        <msr:MD_VectorSpatialRepresentation>
+            <msr:topologyLevel>
+                <msr:MD_TopologyLevelCode codeList="standards.iso.org/19115/-3/lan/1.0/codelists.xml#MD_TopologyLevelCode" codeListValue="geometryOnly">geometryOnly</msr:MD_TopologyLevelCode>
+            </msr:topologyLevel>
+            <msr:geometricObjects>
+                <msr:MD_GeometricObjects>
+                    <msr:geometricObjectType>
+                        <msr:MD_GeometricObjectTypeCode codeList="standards.iso.org/19115/-3/lan/1.0/codelists.xml#MD_GeometricObjectTypeCode" codeListValue="composite">composite</msr:MD_GeometricObjectTypeCode>
+                    </msr:geometricObjectType>
+                </msr:MD_GeometricObjects>
+            </msr:geometricObjects>
+        </msr:MD_VectorSpatialRepresentation>
+    </mdb:spatialRepresentationInfo>
+    <mdb:referenceSystemInfo>
+        <mrs:MD_ReferenceSystem>
+            <mrs:referenceSystemIdentifier>
+                <mcc:MD_Identifier>
+                    <mcc:code>
+                        <gco:CharacterString>3857</gco:CharacterString>
+                    </mcc:code>
+                    <mcc:codeSpace>
+                        <gco:CharacterString>EPSG</gco:CharacterString>
+                    </mcc:codeSpace>
+                    <mcc:version>
+                        <gco:CharacterString>6.18.3(9.3.1.2)</gco:CharacterString>
+                    </mcc:version>
+                </mcc:MD_Identifier>
+            </mrs:referenceSystemIdentifier>
+        </mrs:MD_ReferenceSystem>
+    </mdb:referenceSystemInfo>
+    <mdb:identificationInfo>
+        <mri:MD_DataIdentification>
+            <mri:citation>
+                <cit:CI_Citation>
+                    <cit:title>
+                        <gco:CharacterString>Ohio County Boundaries</gco:CharacterString>
+                    </cit:title>
+                    <cit:presentationForm>
+                        <cit:CI_PresentationFormCode codeList="standards.iso.org/19115/-3/lan/1.0/codelists.xml#CI_PresentationFormCode" codeListValue="mapDigital">mapDigital</cit:CI_PresentationFormCode>
+                    </cit:presentationForm>
+                </cit:CI_Citation>
+            </mri:citation>
+            <mri:abstract>
+                <gco:CharacterString>Delineating the boundary involved extracting 45 NOAA NGS points out of the NGS data for Ohio, and 3 NOAA NGS points were extracted out of the NGS data for Pennsylvania. These 45 NGS points for Ohio fell along the MI/OH boundary and were used to connect the IN/OH boundary East to the Lake Erie Shoreline. The Lake Erie Shoreline was created using the visible coast in 2017 by the Ohio Department of Natural Resources. The ODNR digitized the shore at 1:1500-scale as it appeared in the imagery at that time. 3 NGS points extracted out of Pennsylvania were then used to connect from the Lake Erie Shoreline Southward to the West Virginia Boundary establishing the OH/PA boundary. The WV/OH boundary was established by using existing ODNR and ODOT datasets. The Official KY/OH boundary line is an established series of coordinate. This dataset adheres to these boundaries in accordance to the U.S. Supreme Court decision (OHIO v. KENTUCKY, 471 US 153 [1985]). Ohio-Kentucky Boundary Coordinates | Ohio Department of Natural Resources - GIS Open Data Portal.While every effort was made to obtain and utilize the best available data possible, there are some data limitations that have to be considered, which require edge matching of the data for completeness. This was achieved by augmenting the data with hand digitizing where small missing segments were found.   This dataset contains 88 records, one for each county. Some counties are made up of many separated polygons, typically islands. These have been created as multi-part features.</gco:CharacterString>
+            </mri:abstract>
+            <mri:purpose>
+                <gco:CharacterString>The Official State of Ohio County Boundary as delineated and compiled from publicly available source The full list of resources consulted for this analysis is listed below.</gco:CharacterString>
+            </mri:purpose>
+            <mri:credit>
+                <gco:CharacterString>State of Ohio Department of Administrative Services’ OGRIP Office created this Official State of Ohio Boundary file that was derived from various publicly available sources which include:
+• Ohio Department of Natural Resources (https://ohiodnr.gov/).  Specifically the Official Ohio-Kentucky Boundary Coordinates file (ODNR Theme ID 3693) accessible at: https://ohiodnr.gov/business-and-industry/services-to-business-industry/data-records/metadata-downloads
+
+• Ohio Department of Transportation (https://www.transportation.ohio.gov/home).  Specifically, the boundary files accessible at: https://gis.dot.state.oh.us/tims/Data/Download
+
+
+• NOAA's National Geodetic Survey (https://www.ngs.noaa.gov/).  Specifically, the Michigan, Indiana, Ohio, and Pennsylvania’s NGS data accessible at: https://www.ngs.noaa.gov/cgi-bin/sf_archive.prl
+
+• State of Indiana's GIS Data Harvest (https://ingov.maps.arcgis.com/apps/dashboards/a2268a22b8764c9eadca1fe32dfa25e9)
+
+
+• State of Pennsylvania's Spatial Data Access (https://www.pasda.psu.edu/).  Specifically, the Official State of Pennsylvania’s Boundary file accessible at: https://www.pasda.psu.edu/uci/SearchResults.aspx?Shortcut=base.
+
+• State of Ohio’s Ohio Statewide Parcels Public View data: (https://geohio.maps.arcgis.com/home/item.html?id=26ab5fad8d5d4258a7492a14de83bc0e)
+
+• NOAA’s Shoreline Mapping Program of Lake Erie (Detroit River to Port Clinton): Shoreline Mapping Program of LAKE ERIE, DETROIT RIVER TO PORT CLINTON, MI-OH, OH0906B | InPort (noaa.gov)
+
+Additionally, each individual bordering County in Indiana, Pennsylvania, and Ohio were consulted for Monument Points or any other useful data.  The complete list is below:
+• Ashtabula County: https://gis-ashtabulacounty.opendata.arcgis.com/search
+• Butler County: https://www.butlercountyauditor.org/Home/GIS-Maps?adlt=strict
+• Columbiana County: https://columbiana-county-gis-data-columauditor.hub.arcgis.com/pages/downloads
+• Darke County: https://darkecountyrealestate.org/Posts
+• Defiance County: https://www.defiance-county.com/auditor/mapping.php
+• Hamilton County: https://www.cagis.org/Opendata/?
+• Jefferson County: https://gis.jeffersoncountyoh.com/
+• Mahoning County: https://gisapp.mahoningcountyoh.gov/Public_FTP_Folder/Shape_Files/
+• Mercer County: https://www.mercercountyohio.org/elected-officials/auditor/downloads/
+• Paulding County: https://paulding-county-geospatial-hub-pcaud.hub.arcgis.com/search
+• Preble County: https://prebco.org/358/Tax-Map
+• Trumbull County: https://www.co.trumbull.oh.us/Auditor/GIS
+• Van Wert County: https://vanwert-oh.bhamaps.com/
+• Williams County: https://williams-county-data-wmscoeng.hub.arcgis.com/pages/open-data
+
+Counties in Indiana:
+• Steuben County: https://www.co.steuben.in.us/departments/gis/index.php
+• DeKalb County: https://www.co.dekalb.in.us/department/division.php?structureid=141
+• Allen County: https://www.allencounty.in.gov/164/Assessor
+• Adams County: https://adamsingis.adams.in.us/Html5Viewer/index.html?viewer=Public_Property_Viewer.Adams_County_Public_GIS_Viewer
+• Jay County: https://jaycounty.net/plugins/content/content.php?content.14
+• Randolph County: https://randolphin.wthgis.com/
+• Wayne County: http://gis.co.wayne.in.us/gis/main.asp
+• Union County: https://unionin.wthgis.com/
+• Franklin County: https://franklinin.wthgis.com/
+• Dearborn County: https://www.dearborncounty.org/department/division.php?structureid=51
+• Ohio County: https://ohioin.wthgis.com/
+• Switzerland County: https://switzerlandin.wthgis.com/
+
+Counties in Pennsylvania:
+• Mercer County: https://www.mercercountypa.gov/GIS/default.htm
+• Erie County: https://eriecountypa.gov/geographic-information-system-gis/
+• Crawford County: https://share-open-data-crawfordcountypa.opendata.arcgis.com/search?type=Feature%2520Service
+• Lawrence County: https://lawcopa.maps.arcgis.com/home/index.html
+• Beaver County: https://www.arcgis.com/home/webmap/viewer.html?webmap=515d4d146a524a76afcf1e8590226412</gco:CharacterString>
+            </mri:credit>
+            <mri:spatialRepresentationType>
+                <mcc:MD_SpatialRepresentationTypeCode codeList="standards.iso.org/19115/-3/lan/1.0/codelists.xml#MD_SpatialRepresentationTypeCode" codeListValue="vector">vector</mcc:MD_SpatialRepresentationTypeCode>
+            </mri:spatialRepresentationType>
+            <mri:extent>
+                <gex:EX_Extent>
+                    <gex:geographicElement>
+                        <gex:EX_GeographicBoundingBox>
+                            <gex:westBoundLongitude>
+                                <gco:Decimal>-84.9183691292325</gco:Decimal>
+                            </gex:westBoundLongitude>
+                            <gex:eastBoundLongitude>
+                                <gco:Decimal>-80.479699985143</gco:Decimal>
+                            </gex:eastBoundLongitude>
+                            <gex:southBoundLatitude>
+                                <gco:Decimal>38.3801605318537</gco:Decimal>
+                            </gex:southBoundLatitude>
+                            <gex:northBoundLatitude>
+                                <gco:Decimal>41.993498152561</gco:Decimal>
+                            </gex:northBoundLatitude>
+                        </gex:EX_GeographicBoundingBox>
+                    </gex:geographicElement>
+                </gex:EX_Extent>
+            </mri:extent>
+            <mri:descriptiveKeywords>
+                <mri:MD_Keywords>
+                    <mri:keyword>
+                        <gco:CharacterString>Downloadable Data</gco:CharacterString>
+                    </mri:keyword>
+                    <mri:thesaurusName uuidref="723f6998-058e-11dc-8314-0800200c9a66"/>
+                </mri:MD_Keywords>
+            </mri:descriptiveKeywords>
+            <mri:descriptiveKeywords>
+                <mri:MD_Keywords>
+                    <mri:keyword>
+                        <gco:CharacterString>State of Ohio</gco:CharacterString>
+                    </mri:keyword>
+                    <mri:keyword>
+                        <gco:CharacterString>OGRIP Boundary</gco:CharacterString>
+                    </mri:keyword>
+                    <mri:keyword>
+                        <gco:CharacterString>Official State of Ohio County Boundaries</gco:CharacterString>
+                    </mri:keyword>
+                    <mri:keyword>
+                        <gco:CharacterString>Counties</gco:CharacterString>
+                    </mri:keyword>
+                    <mri:keyword>
+                        <gco:CharacterString>County Boundaries</gco:CharacterString>
+                    </mri:keyword>
+                    <mri:keyword>
+                        <gco:CharacterString>Boundaries</gco:CharacterString>
+                    </mri:keyword>
+                </mri:MD_Keywords>
+            </mri:descriptiveKeywords>
+            <mri:descriptiveKeywords>
+                <mri:MD_Keywords>
+                    <mri:keyword>
+                        <gco:CharacterString>State of Ohio</gco:CharacterString>
+                    </mri:keyword>
+                    <mri:keyword>
+                        <gco:CharacterString>OGRIP Boundary</gco:CharacterString>
+                    </mri:keyword>
+                    <mri:keyword>
+                        <gco:CharacterString>Official State of Ohio County Boundaries</gco:CharacterString>
+                    </mri:keyword>
+                    <mri:keyword>
+                        <gco:CharacterString>Counties</gco:CharacterString>
+                    </mri:keyword>
+                    <mri:keyword>
+                        <gco:CharacterString>County Boundaries</gco:CharacterString>
+                    </mri:keyword>
+                    <mri:keyword>
+                        <gco:CharacterString>Boundaries</gco:CharacterString>
+                    </mri:keyword>
+                </mri:MD_Keywords>
+            </mri:descriptiveKeywords>
+            <mri:descriptiveKeywords>
+                <mri:MD_Keywords>
+                    <mri:keyword>
+                        <gco:CharacterString>State of Ohio</gco:CharacterString>
+                    </mri:keyword>
+                    <mri:keyword>
+                        <gco:CharacterString>OGRIP Boundary</gco:CharacterString>
+                    </mri:keyword>
+                    <mri:keyword>
+                        <gco:CharacterString>Official State of Ohio County Boundaries</gco:CharacterString>
+                    </mri:keyword>
+                    <mri:keyword>
+                        <gco:CharacterString>Counties</gco:CharacterString>
+                    </mri:keyword>
+                    <mri:keyword>
+                        <gco:CharacterString>County Boundaries</gco:CharacterString>
+                    </mri:keyword>
+                    <mri:keyword>
+                        <gco:CharacterString>Boundaries</gco:CharacterString>
+                    </mri:keyword>
+                </mri:MD_Keywords>
+            </mri:descriptiveKeywords>
+            <mri:descriptiveKeywords>
+                <mri:MD_Keywords>
+                    <mri:keyword>
+                        <gco:CharacterString>State of Ohio</gco:CharacterString>
+                    </mri:keyword>
+                    <mri:keyword>
+                        <gco:CharacterString>OGRIP Boundary</gco:CharacterString>
+                    </mri:keyword>
+                    <mri:keyword>
+                        <gco:CharacterString>Official State of Ohio County Boundaries</gco:CharacterString>
+                    </mri:keyword>
+                    <mri:keyword>
+                        <gco:CharacterString>Counties</gco:CharacterString>
+                    </mri:keyword>
+                    <mri:keyword>
+                        <gco:CharacterString>County Boundaries</gco:CharacterString>
+                    </mri:keyword>
+                    <mri:keyword>
+                        <gco:CharacterString>Boundaries</gco:CharacterString>
+                    </mri:keyword>
+                </mri:MD_Keywords>
+            </mri:descriptiveKeywords>
+            <mri:descriptiveKeywords>
+                <mri:MD_Keywords>
+                    <mri:keyword>
+                        <gco:CharacterString>State of Ohio</gco:CharacterString>
+                    </mri:keyword>
+                    <mri:keyword>
+                        <gco:CharacterString>OGRIP Boundary</gco:CharacterString>
+                    </mri:keyword>
+                    <mri:keyword>
+                        <gco:CharacterString>Official State of Ohio County Boundaries</gco:CharacterString>
+                    </mri:keyword>
+                    <mri:keyword>
+                        <gco:CharacterString>Counties</gco:CharacterString>
+                    </mri:keyword>
+                    <mri:keyword>
+                        <gco:CharacterString>County Boundaries</gco:CharacterString>
+                    </mri:keyword>
+                    <mri:keyword>
+                        <gco:CharacterString>Boundaries</gco:CharacterString>
+                    </mri:keyword>
+                </mri:MD_Keywords>
+            </mri:descriptiveKeywords>
+            <mri:descriptiveKeywords>
+                <mri:MD_Keywords>
+                    <mri:keyword>
+                        <gco:CharacterString>State of Ohio</gco:CharacterString>
+                    </mri:keyword>
+                    <mri:keyword>
+                        <gco:CharacterString>OGRIP Boundary</gco:CharacterString>
+                    </mri:keyword>
+                    <mri:keyword>
+                        <gco:CharacterString>Official State of Ohio County Boundaries</gco:CharacterString>
+                    </mri:keyword>
+                    <mri:keyword>
+                        <gco:CharacterString>Counties</gco:CharacterString>
+                    </mri:keyword>
+                    <mri:keyword>
+                        <gco:CharacterString>County Boundaries</gco:CharacterString>
+                    </mri:keyword>
+                    <mri:keyword>
+                        <gco:CharacterString>Boundaries</gco:CharacterString>
+                    </mri:keyword>
+                </mri:MD_Keywords>
+            </mri:descriptiveKeywords>
+            <mri:resourceConstraints>
+                <mco:MD_Constraints>
+                    <mco:useLimitation>
+                        <gco:CharacterString>The State of Ohio’s geospatial data are available for public use at the user’s own risk and provided for informational purposes only.  The State of Ohio provides these data “as is” and does not warrant or guarantee that these data are complete, accurate or error free.  The State of Ohio disclaims any warranties regarding these data and assumes no liability for the use of or reliance on these data. </gco:CharacterString>
+                    </mco:useLimitation>
+                </mco:MD_Constraints>
+            </mri:resourceConstraints>
+            <mri:defaultLocale>
+                <lan:PT_Locale>
+                    <lan:language>
+                        <lan:LanguageCode codeList="http://www.loc.gov/standards/iso639-2/php/code_list.php" codeListValue="eng">eng</lan:LanguageCode>
+                    </lan:language>
+                    <lan:country>
+                        <lan:CountryCode codeList="http://www.iso.org/iso/country_codes/iso_3166_code_lists.htm" codeListValue="US">US</lan:CountryCode>
+                    </lan:country>
+                    <lan:characterEncoding gco:nilReason="unknown"/>
+                </lan:PT_Locale>
+            </mri:defaultLocale>
+            <mri:environmentDescription>
+                <gco:CharacterString>Esri ArcGIS 13.4.0.55405</gco:CharacterString>
+            </mri:environmentDescription>
+        </mri:MD_DataIdentification>
+    </mdb:identificationInfo>
+    <mdb:distributionInfo>
+        <mrd:MD_Distribution>
+            <mrd:distributionFormat>
+                <mrd:MD_Format>
+                    <mrd:formatSpecificationCitation>
+                        <cit:CI_Citation>
+                            <cit:title>
+                                <gco:CharacterString>File Geodatabase Feature Class</gco:CharacterString>
+                            </cit:title>
+                        </cit:CI_Citation>
+                    </mrd:formatSpecificationCitation>
+                </mrd:MD_Format>
+            </mrd:distributionFormat>
+        </mrd:MD_Distribution>
+    </mdb:distributionInfo>
+</mdb:MD_Metadata>
