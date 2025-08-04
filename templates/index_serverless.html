@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ohio Geospatial Data Viewer</title>
+
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+        integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
+        crossorigin="" />
+
+    <style>
+        html, body { height: 100%; margin: 0; padding: 0; font-family: sans-serif; }
+        #map { width: 100%; height: 100%; }
+        .leaflet-popup-content { max-height: 250px; overflow-y: auto; }
+        .popup-content b { color: #333; }
+    </style>
+</head>
+<body>
+    <div id="map"></div>
+
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+        integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
+        crossorigin=""></script>
+
+    <script>
+        // --- GitHub Configuration ---
+        // IMPORTANT: Replace these with your GitHub username and repository name.
+        const GITHUB_USER = 'ApothecaryOfLight';
+        const GITHUB_REPO = 'OhioMapper_data';
+        const BRANCH = 'main';
+        const DATA_PATH = 'output'; // The folder where your processed .json files are
+
+        const baseDataUrl = `https://raw.githubusercontent.com/${GITHUB_USER}/${GITHUB_REPO}/${BRANCH}/${DATA_PATH}`;
+
+        console.log( baseDataUrl );
+
+        // --- Map Initialization ---
+        const map = L.map('map').setView([40.4173, -82.9071], 7);
+        const osmLayer = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+        }).addTo(map);
+
+        const layerCache = new Map();
+        const highlightStyle = { weight: 4, color: '#00FFFF', fillOpacity: 0.7 };
+
+        function onEachFeature(feature, layer) {
+            let popupContent = '<div class="popup-content" style="max-width: 300px;">';
+            if (feature.properties) {
+                if (feature.properties.Title) {
+                     popupContent += `<b>${feature.properties.Title}</b><hr style="margin: 5px 0;">`;
+                }
+                popupContent += '<table>';
+                for (const prop in feature.properties) {
+                    if (prop === 'Title') continue;
+                    popupContent += `<tr><td style="font-weight:bold; vertical-align: top; padding-right: 5px;">${prop}:</td><td>${feature.properties[prop]}</td></tr>`;
+                }
+                popupContent += '</table></div>';
+            }
+            layer.bindPopup(popupContent);
+
+            layer.on({
+                mouseover: (e) => e.target.setStyle(highlightStyle).bringToFront(),
+                mouseout: (e) => e.target.setStyle(e.target.options.originalStyle),
+                click: (e) => map.fitBounds(e.target.getBounds())
+            });
+        }
+
+        async function loadLayer(layerName, targetLayerGroup) {
+            if (targetLayerGroup.getLayers().length > 0) return;
+            if (layerCache.has(layerName)) {
+                const cachedGeoJson = layerCache.get(layerName);
+                cachedGeoJson.addTo(targetLayerGroup);
+                if (cachedGeoJson.getBounds().isValid()) map.fitBounds(cachedGeoJson.getBounds());
+                return;
+            }
+
+            const dataUrl = `${baseDataUrl}/${layerName}.json`;
+            console.log(`Fetching data for layer: ${layerName} from ${dataUrl}`);
+
+            try {
+                const response = await fetch(dataUrl);
+                if (!response.ok) throw new Error(`Network response was not ok: ${response.statusText}`);
+                const data = await response.json();
+
+                const geoJsonLayer = L.geoJSON(data, {
+                    style: (feature) => (feature.geometry.type === "Point")
+                        ? { color: "#ff0000", radius: 6, weight: 1, opacity: 1, fillOpacity: 0.8 }
+                        : { color: "#1f78b4", weight: 2, opacity: 0.8, fillColor: "#a6cee3", fillOpacity: 0.5 },
+                    pointToLayer: (feature, latlng) => L.circleMarker(latlng),
+                    onEachFeature: (feature, layer) => {
+                        layer.options.originalStyle = layer.options.style(feature);
+                        onEachFeature(feature, layer);
+                    }
+                });
+
+                layerCache.set(layerName, geoJsonLayer);
+                geoJsonLayer.addTo(targetLayerGroup);
+                if (geoJsonLayer.getBounds().isValid()) map.fitBounds(geoJsonLayer.getBounds());
+            } catch (error) {
+                console.error(`Could not load map data for layer: ${layerName}.`, error);
+                alert(`Could not load map data for layer: ${layerName}. Check the console for details.`);
+            }
+        }
+
+        async function initialize() {
+            const layersManifestUrl = `${baseDataUrl}/layers.json`;
+            try {
+                const response = await fetch(layersManifestUrl);
+                const layerNames = await response.json();
+
+                const baseMaps = { "OpenStreetMap": osmLayer };
+                const overlayMaps = {};
+                layerNames.forEach(name => {
+                    overlayMaps[name.replace(/_/g, ' ')] = L.layerGroup();
+                });
+
+                L.control.layers(baseMaps, overlayMaps, { collapsed: false }).addTo(map);
+
+                map.on('overlayadd', (e) => loadLayer(e.name.replace(/ /g, '_'), e.layer));
+
+                const firstLayerName = Object.keys(overlayMaps)[0];
+                if (firstLayerName) {
+                    overlayMaps[firstLayerName].addTo(map);
+                }
+            } catch (error) {
+                console.error('Error fetching layer list:', error);
+                alert('Could not fetch the list of available layers from GitHub. Please check your repository configuration.');
+            }
+        }
+
+        initialize();
+    </script>
+</body>
+</html>
